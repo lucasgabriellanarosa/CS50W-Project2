@@ -1,0 +1,40 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2 class="d-flex justify-content-center"><mark>Create a new listing</mark></h2>
+
+    <form action="{% url 'new_listing' %}" method="POST" class="d-flex flex-column" style="justify-content: center; align-items: center;">
+        {% csrf_token %}
+
+        <div class="form-group w-50">
+            <label>Title</label>
+            <input name="title" type="text" class="form-control" placeholder="Enter title">
+        </div>
+        <div class="form-group w-50">
+            <label>Description</label>
+            <textarea name="description" class="form-control" cols="15" rows="5" placeholder="Enter description"></textarea>
+        </div>
+        <div class="form-group w-50">
+            <label>Image URL</label>
+            <input name="imageUrl" type="text" class="form-control" placeholder="Enter image url">
+        </div>
+        <div class="form-group w-50">
+            <label>Price</label>
+            <input name="price" type="number" class="form-control w-50" placeholder="Enter initial price">
+        </div>
+
+        <div class="form-group w-50">
+            <label>Select the Category: </label>
+
+            <select class="form-select" name="category">
+                {% for category in allCategories %}
+                    <option value="{{category.categoryName}}">{{ category.categoryName }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+
+
+        <button type="submit" class="btn btn-primary">Save</button>
+      </form>
+{% endblock %}

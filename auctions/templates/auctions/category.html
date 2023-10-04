@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2 class="d-flex justify-content-center"><mark>{{category.categoryName}}</mark></h2>
+
+    <li class="d-flex flex-column justify-content-center align-items-center pt-3">
+
+        {% for listing in active_listings_in_category %}
+            <div class="card mb-3" style="max-width: 650px;">
+            <div class="row no-gutters">
+                <div class="col-md-4 align-self-center">
+                    <img src="{{listing.imageUrl}}" class="card-img" alt="{{listing.title}}">
+                </div>
+
+                <div class="col-md-8">
+                    <div class="card-body">
+                        <h5 class="card-title">{{listing.title}}</h5>
+                        <p class="card-text">Owner: User..</p>
+                        <p class="card-text">{{listing.description|truncatechars:250 }}</p>
+                        <p class="card-text">${{listing.price}}</p>
+                        <form action="{% url 'listing_page' id=listing.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-outline-primary">Details</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        {% empty %}
+            <h3>No listing in this category.</h3>
+        {% endfor%}
+    </li>
+
+{% endblock %}
